@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Log in — StudySphere</title>
+    <link rel="stylesheet" href="/style.css?v=20261027-5">
+    <script defer src="/app.js"></script>
+    <script defer src="/theme.js"></script>
+  </head>
+  <body class="auth-page">
+    <main class="auth-card">
+      <div class="card-header">
+        <a class="brand" href="/">StudySphere<span>.</span></a>
+        <button id="theme-toggle" class="button ghost" type="button">Switch to light theme</button>
+      </div>
+      <h1>Welcome back</h1>
+      <p>Log in to see your study tasks.</p>
+      <form id="login-form">
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+        <button class="button" type="submit">Log in</button>
+        <p id="form-message" class="message" role="status"></p>
+      </form>
+      <p>New here? <a href="/signup.html">Create an account</a></p>
+    </main>
+  </body>
+</html>

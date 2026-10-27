@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>StudySphere Dashboard</title>
+    <link rel="stylesheet" href="/style.css?v=20261027-5">
+    <script defer src="/app.js"></script>
+    <script defer src="/theme.js"></script>
+  </head>
+  <body class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/dashboard.html">StudySphere<span>.</span></a>
+      <p class="eyebrow">YOUR WORKSPACE</p>
+      <nav>
+        <a class="nav-link" href="#overview">Overview</a>
+        <a class="nav-link" href="#tasks-section">Tasks</a>
+        <a class="nav-link" href="#focus-section">Focus timer</a>
+        <a class="nav-link" href="#timetable-section">Timetable</a>
+        <a class="nav-link" href="#notes-section">Notes & revision</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <span id="user-name">Student</span>
+        <button id="logout-button" class="text-button">Log out</button>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p id="today-label" class="eyebrow">YOUR STUDY SPACE</p>
+          <h1 id="welcome-title">Welcome back!</h1>
+          <p>One focused step at a time.</p>
+        </div>
+        <button id="theme-toggle" class="button ghost" type="button">Switch to light theme</button>
+      </header>
+      <section id="overview">
+        <div class="stats">
+          <article class="stat-card"><span>Total tasks</span><strong id="total-count">0</strong></article>
+          <article class="stat-card"><span>Completed</span><strong id="completed-count">0</strong></article>
+          <article class="stat-card"><span>Pending</span><strong id="pending-count">0</strong></article>
+          <article class="stat-card"><span>Due today</span><strong id="today-count">0</strong></article>
+          <article class="stat-card"><span>Overdue</span><strong id="overdue-count">0</strong></article>
+        </div>
+        <div class="overview-grid">
+          <article class="panel">
+            <h2>Your progress <strong id="progress-percent">0%</strong></h2>
+            <div class="progress-track"><div id="progress-fill"></div></div>
+            <p id="progress-message">Add your first task to get started.</p>
+          </article>
+          <article class="panel">
+            <h2>Weekly completion</h2>
+            <p>Completed tasks in the last 7 days</p>
+            <div id="weekly-chart" class="chart"></div>
+          </article>
+        </div>
+      </section>
+      <section id="tasks-section" class="panel">
+        <h2 id="task-form-heading">Add a study task</h2>
+        <form id="task-form" class="form-grid">
+          <input type="hidden" id="task-id" name="taskId">
+          <label>Task title<input name="title" id="task-title" required maxlength="160"></label>
+          <label>Subject<input name="subject" id="task-subject" required maxlength="100"></label>
+          <label>Deadline<input name="dueDate" id="task-date" type="date" required></label>
+          <label>Priority<select name="priority" id="task-priority"><option>Low</option><option>Medium</option><option selected>High</option></select></label>
+          <div class="form-actions">
+            <button id="add-task-button" class="button">Add task</button>
+            <button id="cancel-edit" type="button" class="button ghost hidden">Cancel edit</button>
+          </div>
+          <p id="task-message" class="message span-all" role="status"></p>
+        </form>
+        <div class="filters">
+          <input id="task-search" type="search" placeholder="Search title or subject">
+          <select id="filter-subject"><option value="">All subjects</option></select>
+          <select id="filter-priority"><option value="">All priorities</option><option>High</option><option>Medium</option><option>Low</option></select>
+          <select id="filter-status">
+            <option value="">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="overdue">Overdue</option>
+            <option value="today">Due today</option>
+          </select>
+          <select id="sort-tasks">
+            <option value="deadline">Nearest deadline</option>
+            <option value="priority">Highest priority</option>
+            <option value="newest">Recently added</option>
+          </select>
+        </div>
+        <div id="task-list" class="item-list">Loading tasks…</div>
+      </section>
+      <section id="focus-section" class="panel">
+        <h2>Focus timer</h2>
+        <p>25-minute focus sessions and 5-minute breaks.</p>
+        <div id="timer-display" class="timer-display">25:00</div>
+        <div class="timer-controls">
+          <button id="timer-start" class="button">Start</button>
+          <button id="timer-pause" class="button ghost">Pause</button>
+          <button id="timer-reset" class="button ghost">Reset</button>
+          <button id="timer-mode" class="button ghost">Switch to break</button>
+        </div>
+        <p id="focus-mode">Focus session</p>
+        <p>Completed sessions: <strong id="focus-sessions-count">0</strong> · Total focused minutes: <strong id="focus-minutes">0</strong></p>
+        <p id="focus-message" class="message"></p>
+      </section>
+      <section id="timetable-section" class="panel">
+        <h2>Weekly timetable</h2>
+        <p>Plan study blocks and track planned versus completed sessions.</p>
+        <form id="session-form" class="form-grid">
+          <label>Session title<input name="title" required></label>
+          <label>Subject<input name="subject" required></label>
+          <label>Date<input name="date" id="session-date" type="date" required></label>
+          <label>Start time<input name="startTime" type="time" required></label>
+          <label>End time<input name="endTime" type="time" required></label>
+          <div><button class="button">Add session</button></div>
+          <p id="session-message" class="message span-all"></p>
+        </form>
+        <p>Planned: <strong id="planned-count">0</strong> · Completed: <strong id="session-completed-count">0</strong></p>
+        <div id="timetable-list" class="item-list"></div>
+      </section>
+      <section id="notes-section" class="panel">
+        <h2>Notes & revision planner</h2>
+        <p>Create subject notes and mark topics as revised.</p>
+        <form id="note-form" class="form-grid">
+          <input type="hidden" id="note-id">
+          <label>Subject<input name="subject" required></label>
+          <label>Topic title<input name="title" required></label>
+          <label class="span-all">Notes<textarea name="content" rows="4"></textarea></label>
+          <div class="form-actions">
+            <button id="save-note-button" class="button">Save note</button>
+            <button id="cancel-note-edit" type="button" class="button ghost hidden">Cancel edit</button>
+          </div>
+          <p id="note-message" class="message span-all"></p>
+        </form>
+        <div id="notes-list" class="item-list"></div>
+      </section>
+      <footer>StudySphere · Plan thoughtfully. Focus deeply. Learn steadily.</footer>
+    </main>
+  </body>
+</html>
